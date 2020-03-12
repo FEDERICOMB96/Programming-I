@@ -4,6 +4,7 @@
 ;2
 (define (dist_origen x y)
         (sqrt (+ (expt x 2) (expt y 2))))
+        
 ;3
 (define (dist_puntos x1 y1 x2 y2)
         (sqrt (+ (expt (- x1 x2) 2) (expt (- y1 y2) 2))))
@@ -33,7 +34,6 @@
              (> (+ a c ) b)))
 
 ;9
-
 (define (a x y z)
                 (= (expt x 2) (+ (expt y 2) (expt z 2))))
   
@@ -56,4 +56,4 @@
                (substring a (+ i 1) (string-length a)))
 
 (define (poner- a i)
-       (string-append (string-append (inicio a i ) "-") (fin a i)))
+       (string-append (string-append (inicio a i) "-") (fin a i)))
