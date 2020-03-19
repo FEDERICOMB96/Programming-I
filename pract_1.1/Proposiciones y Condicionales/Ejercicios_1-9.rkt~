@@ -8,9 +8,7 @@
 
 (define
   (flaca-gorda image)
-  (if (>= (image-height image) (image-width image))
-      "Flaca"
-      "Gorda"))
+  (if (>= (image-height image) (image-width image)) "Flaca" "Gorda"))
 
 ; 2.
 ; Funcion que toma como argumento una imagen, y la clasifica en "Flaca", "Gorda" o "Cuadrada".
