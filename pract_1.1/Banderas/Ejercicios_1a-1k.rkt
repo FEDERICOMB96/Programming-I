@@ -4,86 +4,86 @@
 (require 2htdp/image)
 
 ; Tamaño de las banderas
-(define ancho 180)
-(define alto 120)
+(define ANCHO 180)
+(define ALTO 120)
 
 ; Bandas y Marco
-(define (banda-vertical color) (rectangle (/ ancho 3) alto "solid" color))
-(define (banda-horizontal color) (rectangle ancho (/ alto 3) "solid" color))
-(define marco (empty-scene ancho alto))
+(define (BANDA-VERTICAL color) (rectangle (/ ANCHO 3) ALTO "solid" color))
+(define (BANDA-HORIZONTAL color) (rectangle ANCHO (/ ALTO 3) "solid" color))
+(define MARCO (empty-scene ANCHO ALTO))
 
 ; a)
 ; Peru
 
-(define peru (place-image (banda-vertical "red")
-                          (/ ancho 6) (/ alto 2)
-                          (place-image (banda-vertical "white")
-                                       (/ ancho 2) (/ alto 2)
-                                       (place-image (banda-vertical "red")
-                                                    (* 5 (/ ancho 6)) (/ alto 2)
-                                                    marco))))
+(define peru (place-image (BANDA-VERTICAL "red")
+                          (/ ANCHO 6) (/ ALTO 2)
+                          (place-image (BANDA-VERTICAL "white")
+                                       (/ ANCHO 2) (/ ALTO 2)
+                                       (place-image (BANDA-VERTICAL "red")
+                                                    (* 5 (/ ANCHO 6)) (/ ALTO 2)
+                                                    MARCO))))
 
 ; b)
 ; Italia
 
-(define italia (place-image (banda-vertical "green")
-                            (/ ancho 6) (/ alto 2)
-                            (place-image (banda-vertical "white")
-                                         (/ ancho 2) (/ alto 2)
-                                         (place-image (banda-vertical "red")
-                                                      (* 5 (/ ancho 6)) (/ alto 2)
-                                                      marco))))
+(define italia (place-image (BANDA-VERTICAL "green")
+                            (/ ANCHO 6) (/ ALTO 2)
+                            (place-image (BANDA-VERTICAL "white")
+                                         (/ ANCHO 2) (/ ALTO 2)
+                                         (place-image (BANDA-VERTICAL "red")
+                                                      (* 5 (/ ANCHO 6)) (/ ALTO 2)
+                                                      MARCO))))
 
 ; c)
-; Cualquier Bandera que esté formada por tres bandas verticales de igual ancho.
+; Cualquier Bandera que esté formada por tres bandas verticales de igual ANCHO.
 
 (define
   (bandera-3bandas-verticales color-banda1 color-banda2 color-banda3)
-  (place-image (banda-vertical color-banda1)
-               (/ ancho 6) (/ alto 2)
-               (place-image (banda-vertical color-banda2)
-                            (/ ancho 2) (/ alto 2)
-                            (place-image (banda-vertical color-banda3)
-                                         (* 5 (/ ancho 6)) (/ alto 2)
-                                         marco))))
+  (place-image (BANDA-VERTICAL color-banda1)
+               (/ ANCHO 6) (/ ALTO 2)
+               (place-image (BANDA-VERTICAL color-banda2)
+                            (/ ANCHO 2) (/ ALTO 2)
+                            (place-image (BANDA-VERTICAL color-banda3)
+                                         (* 5 (/ ANCHO 6)) (/ ALTO 2)
+                                         MARCO))))
 
 ; d)
 ; Alemania
 
-(define alemania (place-image (banda-horizontal "black")
-                              (/ ancho 2) (/ alto 6)
-                              (place-image (banda-horizontal "red")
-                                           (/ ancho 2) (/ alto 2)
-                                           (place-image (banda-horizontal "yellow")
-                                                        (/ ancho 2) (* 5 (/ alto 6))
-                                                        marco))))
+(define alemania (place-image (BANDA-HORIZONTAL "black")
+                              (/ ANCHO 2) (/ ALTO 6)
+                              (place-image (BANDA-HORIZONTAL "red")
+                                           (/ ANCHO 2) (/ ALTO 2)
+                                           (place-image (BANDA-HORIZONTAL "yellow")
+                                                        (/ ANCHO 2) (* 5 (/ ALTO 6))
+                                                        MARCO))))
 
 ; e)
 ; Holanda
 
-(define holanda (place-image (banda-horizontal "red")
-                              (/ ancho 2) (/ alto 6)
-                              (place-image (banda-horizontal "white")
-                                           (/ ancho 2) (/ alto 2)
-                                           (place-image (banda-horizontal "blue")
-                                                        (/ ancho 2) (* 5 (/ alto 6))
-                                                        marco))))
+(define holanda (place-image (BANDA-HORIZONTAL "red")
+                             (/ ANCHO 2) (/ ALTO 6)
+                             (place-image (BANDA-HORIZONTAL "white")
+                                          (/ ANCHO 2) (/ ALTO 2)
+                                          (place-image (BANDA-HORIZONTAL "blue")
+                                                       (/ ANCHO 2) (* 5 (/ ALTO 6))
+                                                       MARCO))))
 
 ; f)
-; Cualquier Bandera que esté formada por tres bandas horizontales de igual alto.
+; Cualquier Bandera que esté formada por tres bandas horizontales de igual ALTO.
 
 (define
   (bandera-3bandas-horizontales color-banda1 color-banda2 color-banda3)
-  (place-image (banda-horizontal color-banda1)
-               (/ ancho 2) (/ alto 6)
-               (place-image (banda-horizontal color-banda2)
-                            (/ ancho 2) (/ alto 2)
-                            (place-image (banda-horizontal color-banda3)
-                                         (/ ancho 2) (* 5 (/ alto 6))
-                                         marco))))
+  (place-image (BANDA-HORIZONTAL color-banda1)
+               (/ ANCHO 2) (/ ALTO 6)
+               (place-image (BANDA-HORIZONTAL color-banda2)
+                            (/ ANCHO 2) (/ ALTO 2)
+                            (place-image (BANDA-HORIZONTAL color-banda3)
+                                         (/ ANCHO 2) (* 5 (/ ALTO 6))
+                                         MARCO))))
 
 ; g)
-; Cualquier Bandera que esté formada por tres bandas del mismo alto/ancho.
+; Cualquier Bandera que esté formada por tres bandas del mismo ALTO/ANCHO.
 
 (define
   (bandera-3bandas color-banda1 color-banda2 color-banda3 sentido)
@@ -98,26 +98,26 @@
 
 ; i)
 ; Sudan
-(define sudan (place-image (rotate -90 (triangle alto "solid" "green"))
-                           (/ ancho 4) (/ alto 2)
+(define sudan (place-image (rotate -90 (triangle ALTO "solid" "green"))
+                           (/ ANCHO 4) (/ ALTO 2)
                            (bandera-3bandas "red" "white" "black" "horizontal")))
 
 ; Argentina
-(define argentina (place-image (circle (/ alto 8) "solid" "yellow")
-                               (/ ancho 2) (/ alto 2)
+(define argentina (place-image (circle (/ ALTO 8) "solid" "yellow")
+                               (/ ANCHO 2) (/ ALTO 2)
                                (bandera-3bandas "blue" "white" "blue" "horizontal")))
 
 ; Camerun
-(define camerun (place-image (star (/ alto 6) "solid" "yellow")
-                             (/ ancho 2) (/ alto 2)
+(define camerun (place-image (star (/ ALTO 6) "solid" "yellow")
+                             (/ ANCHO 2) (/ ALTO 2)
                              (bandera-3bandas "green" "red" "yellow" "vertical")))
 
 ; j)
 ; Brasil
-(define brasil (place-image (circle (/ alto 5) "solid" "blue")
-                            (/ ancho 2) (/ alto 2)
-                            (place-image (rhombus (/ ancho 2) 120 "solid" "yellow")
-                                         (/ ancho 2) (/ alto 2)
-                                         (place-image (rectangle ancho alto "solid" "green")
-                                                      (/ ancho 2) (/ alto 2)
-                                                      marco))))
+(define brasil (place-image (circle (/ ALTO 5) "solid" "blue")
+                            (/ ANCHO 2) (/ ALTO 2)
+                            (place-image (rhombus (/ ANCHO 2) 120 "solid" "yellow")
+                                         (/ ANCHO 2) (/ ALTO 2)
+                                         (place-image (rectangle ANCHO ALTO "solid" "green")
+                                                      (/ ANCHO 2) (/ ALTO 2)
+                                                      MARCO))))

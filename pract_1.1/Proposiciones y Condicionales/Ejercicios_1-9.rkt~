@@ -60,9 +60,9 @@
   (+ (if (< c 4)
          (* c PC)
          (* c (* PC 0.9)))
-     (if (< l 5)
+     (if (< l 4)
          (* l PL)
-         (* l (* PL 0.85)))))
+         (* l (* PL 0.9)))))
 
 ; 6.
 ; Funcion que dados dos valores c y l devuelve el monto a pagar si se compran c cuadernos y l lapices.
@@ -75,9 +75,9 @@
      (+ (if (< c 4)
             (* c PC)
             (* c (* PC 0.9)))
-        (if (< l 5)
+        (if (< l 4)
             (* l PL)
-            (* l (* PL 0.85))))))
+            (* l (* PL 0.9))))))
 
 ; 7.
 ; Redefinicion de la funcion pitagorica? de la Practica 0 usando if.
@@ -88,8 +88,8 @@
 (define
   (pitagorica? x y z)
   (if (or (f x y z) (f y x z) (f z x y))
-      true
-      false))
+      #true
+      #false))
   
 ; 8.
 ; Modificacion del ejercicio anterior para que se genere un string en lugar de un booleano.
@@ -108,6 +108,6 @@
 
 (define
   (collatz n)
-  (if (= (remainder n 2) 0)
+  (if (= (/ n 2) 0)
       (/ n 2)
       (+ (* 3 n) 1)))
