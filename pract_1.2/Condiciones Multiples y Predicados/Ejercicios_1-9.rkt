@@ -75,14 +75,14 @@
 
 (define (monto-cuadernos c)
   (* c PC (cond [(>= c LIMITE-CUADERNOS) (- 1 DESCUENTO-CUADERNOS) ]
-                [else 1]))))
+                [else 1])))
 
 (check-expect (monto-lapices 1) 8)
 (check-expect (monto-lapices 5) 34)
 
 (define (monto-lapices l)
   (* l PL (cond [(>= l LIMITE-LAPICES) (- 1 DESCUENTO-LAPICES)]
-                [else 1]))))
+                [else 1])))
 
 ; Ejercicio 7 Practica 1.1 Seccion 1.3
 (check-expect (pitagorica? 5 3 4) #true)
