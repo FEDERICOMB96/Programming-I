@@ -65,22 +65,24 @@
 (check-expect (monto-a-pagar 5 5) 249.28) 
 
 (define (monto-a-pagar c l)
- (* (+ (monto-cuadernos c) (monto-lapices l)) (cond [(>= (+ c l) LIMITE-TOTAL) (- 1 DESCUENTO-TOTAL)]
-                                                    [else 1])))
+ (* (+ (monto-cuadernos c)
+       (monto-lapices l))
+    (cond [(>= (+ c l) LIMITE-TOTAL) (- 1 DESCUENTO-TOTAL)]
+          [else 1])))
 
 (check-expect (monto-cuadernos 1) 60)
 (check-expect (monto-cuadernos 5) 270)
 
 (define (monto-cuadernos c)
-  (* c (* PC (cond [(>= c LIMITE-CUADERNOS) (- 1 DESCUENTO-CUADERNOS) ]
-                   [else 1]))))
+  (* c PC (cond [(>= c LIMITE-CUADERNOS) (- 1 DESCUENTO-CUADERNOS) ]
+                [else 1]))))
 
 (check-expect (monto-lapices 1) 8)
 (check-expect (monto-lapices 5) 34)
 
 (define (monto-lapices l)
-  (* l (* PL (cond [(>= l LIMITE-LAPICES) (- 1 DESCUENTO-LAPICES)]
-                   [else 1]))))
+  (* l PL (cond [(>= l LIMITE-LAPICES) (- 1 DESCUENTO-LAPICES)]
+                [else 1]))))
 
 ; Ejercicio 7 Practica 1.1 Seccion 1.3
 (check-expect (pitagorica? 5 3 4) #true)
