@@ -39,6 +39,7 @@
 
 ; 5.
 ; Funcion que dados dos valores c y l devuelve el monto a pagar si se compran c cuadernos y l lapices.
+
 (define PC 60)
 (define PL 8)
 
@@ -52,14 +53,14 @@
   (+ (monto-cuadernos c) (monto-lapices l)))
 
 (define (monto-cuadernos c)
-  (* c PC (if (>= c LIMITE-CUADERNOS)
-              (- 1 DESCUENTO-CUADERNOS)
-              1)))
+  (* c (* PC (if (>= c LIMITE-CUADERNOS)
+                 (- 1 DESCUENTO-CUADERNOS)
+                 1))))
 
 (define (monto-lapices l)
-  (* l PL (if (>= l LIMITE-LAPICES)
-              (- 1 DESCUENTO-LAPICES)
-              1)))
+  (* l (* PL (if (>= l LIMITE-LAPICES)
+                 (- 1 DESCUENTO-LAPICES)
+                 1))))
 
 ; 6.
 ; Funcion que dados dos valores c y l devuelve el monto a pagar si se compran c cuadernos y l lapices.
@@ -73,6 +74,7 @@
 
 ; 7.
 ; Redefinicion de la funcion pitagorica? de la Practica 0 usando if.
+
 (define (pitagorica? a b c)
   (if (and (> a b) (> a c))
       (= (sqr a) (+ (sqr b) (sqr c)))
@@ -83,7 +85,8 @@
 ; 8.
 ; Modificacion del ejercicio anterior para que se genere un string en lugar de un booleano.
 ; En esta version, esperamos que (pitagorica? 3 4 5) evalue a "Los numeros 3, 4 y 5 forman una terna pitagorica."
-(define (pitagorica?-v2 x y z)
+  
+(define (pitagorica?-version2 x y z)
   (if (pitagorica? x y z)
       (string-append "Los numeros " (number->string x) ", " (number->string y) " y "
                      (number->string z) " forman una terna pitagorica.")
@@ -92,6 +95,7 @@
 
 ; 9.
 ; Funcion que reciba un numero natural n y devuelve n/2 si n es par, o 3*n+1 si n es impar.
+
 (define (collatz n)
   (if (= (remainder n 2) 0)
       (/ n 2)
