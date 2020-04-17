@@ -215,7 +215,7 @@
 ;###############################################################################
 ; Ejercicio 10:
 ; Representamos las edades (en meses) y la hemoglobina en sangre (en g/dl)
-; con numeros positivos
+; con números positivos
 
 (define VALOR-MINIMO-HASTA-1-MES 13)
 (define VALOR-MINIMO-ENTRE-1-Y-6-MESES 10)
@@ -298,8 +298,8 @@
 
 ;###############################################################################
 ; Ejercicio 12:
-; Representamos el grado del combustible con numeros enteros (2 o 3),
-; la cantidad de litros de combustible con numeros positivos y la mejora de
+; Representamos el grado del combustible con números enteros (2 o 3),
+; la cantidad de litros de combustible con números positivos y la mejora de
 ; rendimiento con valores entre 0 y 1 (Ejemplo: Mejora del 10% -> 0.10)
 
 (define CONSUMO-PROMEDIO-CIUDAD 8)
