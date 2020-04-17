@@ -106,9 +106,11 @@
 (check-expect (clasificar-imagen-4 (rectangle 10 20 "solid" "red")) "Flaca")
 
 (define (clasificar-imagen-4 imagen)
-  (cond [(< (* 2 (alto imagen)) (ancho imagen)) "Muy Gorda"]
+  (cond [(= (alto imagen) (ancho imagen)) "Cuadrada"]
+        [(< (* 2 (alto imagen)) (ancho imagen)) "Muy Gorda"]
+        [(< (alto imagen) (ancho imagen)) "Gorda"]
         [(> (alto imagen) (* 2 (ancho imagen))) "Muy flaca"]
-        [else (clasificar-imagen-2 imagen)]))
+        [else "Flaca"]))
 
 ; 5.
 (check-expect (clasificar -3) "No Olvidar Bufanda (NOB)")
@@ -136,7 +138,7 @@
 
 (define (sgn4 x)
   (cond [(or (number? x) (string? x)) (sgn3-v2 x)]
-        [(boolean? x) (if x 1 0)]))
+        [(boolean? x) (sgn3-v2 (if x 1 0))]))
 
 ; 7.
 (check-expect (sgn5 #true) 1)
@@ -157,23 +159,19 @@
 
 ; 8.
 (check-expect (sgn6 2) 1)
-(check-expect (sgn6 #\a) "Clase no soportada por la función")
-
-(define MSJ-ERROR-CLASE-NO-SOPORTADA "Clase no soportada por la función")
+(check-expect (sgn6 #\a) "Clase no soportada por la función.")
 
 (define (sgn6 x)
   (cond [(or (number? x) (string? x)(boolean? x) (image? x)) (sgn5 x)]
-        [else MSJ-ERROR-CLASE-NO-SOPORTADA]))
+        [else "Clase no soportada por la función."]))
 
 ; 9.
 (check-expect (sgn3-v2 1) 1)
 (check-expect (sgn3-v2 "12") 1)
 (check-expect (sgn3-v2 "123a") "La cadena no se puede convertir a un número")
 
-(define MSJ-ERROR-STRING-NO-NUM "La cadena no se puede convertir a un número")
-
 (define (sgn3-v2 x)
   (cond [(number? x) (sgn2 x)]
         [(string? x) (if (number? (string->number x))
                          (sgn2 (string->number x))
-                          MSJ-ERROR-STRING-NO-NUM)]))
+                         "La cadena no se puede convertir a un número")]))

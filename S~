@@ -1,0 +1,76 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname S) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+; Ejercicio 1:
+; Representamos un punto mediante sus coordenadas numericas
+
+; distancia-origen: Number Number -> Number
+; recibe las coordenadas de un punto, devuelve la distancia al origen del mismo
+
+(check-expect (distancia-origen 3 4) 5)
+
+(define (distancia-origen x y)
+  (sqrt (+ (sqr x) (sqr y))))
+
+
+; Ejercicio 2:
+; Representamos dos puntos mediante sus coordenadas numericas
+
+; distancia-puntos: Number Number Number Number -> Number
+; recibe las coordenadas de dos puntos, devuelve la distancia entro los mismos
+
+(check-expect (distancia-puntos 3 4 0 0) 5)
+
+(define (distancia-puntos x1 y1 x2 y2)
+  (sqrt (+ (sqr (- x2 x1))(sqr (- y2 y1)))))
+
+
+; Ejercicio 3:
+; Representamos la longitud con numeros
+
+; vol-cubo: Number -> Number
+; recibe la longitud de la arista de un cubo, devuelve su volumen
+
+(check-expect (vol-cubo 1) 1)
+
+(define (vol-cubo arista)
+  (expt arista 3))
+
+
+; Ejercicio 4:
+; Representamos la longitud con numeros
+
+; area-cubo: Number -> Number
+; recibe la longitud de la arista de un cubo y devuelve su área
+
+(check-expect (area-cubo 2) 24)
+
+(define (area-cubo arista)
+  (* 6 (sqr arista)))
+
+; Ejercicio 5:
+
+; string-insert: String Number -> String
+; recibe un string y un número i e inserta "-" en la posición i-ésima del string
+(define (string-insert str i)
+  ())
+
+; Ejercicio 6:
+
+(define (string-last str)
+  ())
+
+; Ejercicio 7:
+(define (string-remove-last str)
+  ())
+
+; Ejercicio 9:
+
+
+; Ejercicio 10:
+
+
+; Ejercicio 11:
+
+
+; Ejercicio 12:
