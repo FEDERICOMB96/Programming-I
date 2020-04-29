@@ -113,14 +113,14 @@
 ; string-last: String -> String
 ; recibe una cadena de caracteres, devuelve el ultimo caracter de la misma
 
-(check-expect (string-last "Perro") "o")
+(check-expect (string-last "Perro") "Perr")
 (check-expect (string-last "") MSJ-ERROR-CADENA-VACIA)
 (check-expect (string-last 42) MSJ-ERROR-NO-ES-STRING)
 
 (define (string-last str)
   (if (string? str)
       (if (non-empty-string? str)
-          (substring str (- (string-length str) 1))
+          (substring str 0 (- (string-length str) 1))
            MSJ-ERROR-CADENA-VACIA)
       MSJ-ERROR-NO-ES-STRING))
 
