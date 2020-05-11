@@ -111,7 +111,7 @@
 ; Diseño de datos
 
 ; string-last: String -> String
-; recibe una cadena de caracteres, devuelve el ultimo caracter de la misma
+; recibe una cadena de caracteres, extrae el ultimo caracter de la misma
 
 (check-expect (string-last "Perro") "Perr")
 (check-expect (string-last "") MSJ-ERROR-CADENA-VACIA)
