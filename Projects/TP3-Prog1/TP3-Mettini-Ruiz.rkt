@@ -10,7 +10,7 @@ Integrantes:
 |#
 
 (define MENSAJE-ERROR-TIPO "Tipo de dato inválido")
-(define MENSAJE-ERROR-NO-MAYOR-A-CERO "El entero n no es mayor a 0")
+(define MENSAJE-ERROR-NO-MAYOR-A-CERO "El entero no es mayor a 0")
 
 ;; -------------------------------------
 ;; Ejercicio 1 
@@ -18,13 +18,14 @@ Integrantes:
 (define-struct Circunferencia [centro radio])
 ;; Circunferencia es (posn, Number)
 ;; Intepretación: El primer elemento es el centro de la circunferencia
-;; (un par ordenado) mientras que el segundo es el radio de la misma
-;; (en píxeles).
+;; (un par ordenado de coordenadas x, y en el plano cartesiano)
+;; mientras que el segundo es el radio de la misma (en píxeles).
 
 ;; Ejemplos:
 (define C1 (make-Circunferencia (make-posn 10 50) 10))
 (define C2 (make-Circunferencia (make-posn 50 50) 30))
 (define C3 (make-Circunferencia (make-posn 50 50) 20))
+(define C4 (make-Circunferencia (make-posn 90 50) 20))
 
 ;; -------------------------------------
 ;; Ejercicio 2
@@ -33,7 +34,8 @@ Integrantes:
 ;; Dadas las coordenadas de los centros de dos circunferencias,
 ;; devuelve la distancia entre los mismos.
 
-(check-expect (distancia (make-posn 3 5) (make-posn 4 5)) 1)
+(check-expect (distancia (Circunferencia-centro C1) (Circunferencia-centro C2)) 40)
+(check-expect (distancia (Circunferencia-centro C2) (Circunferencia-centro C3)) 0)
 
 (define (distancia p q)
   (sqrt (+ (sqr (- (posn-x p) (posn-x q)))
@@ -57,8 +59,8 @@ Integrantes:
 ;; Ejercicio 3
 
 ;; crear-tangente-exterior: Circunferencia Number -> Circunferencia/String
-;; Dada una circunferencia C y un entero n mayor a 0, devuelva otra
-;; circunferencia C’ que verifique las siguientes condiciones:
+;; Dada una circunferencia C y un entero n mayor a 0, devuelve otra
+;; circunferencia C’ que verifica las siguientes condiciones:
 ;; - C y C’ son tangentes exteriores
 ;; - El radio de C’ es n veces el radio de C
 ;; - Las coordenadas y de los centros de C y C’ son iguales
@@ -67,8 +69,8 @@ Integrantes:
 ;; se informa el error.
 
 (check-expect (crear-tangente-exterior C1 3) C2)
-(check-expect (crear-tangente-exterior C1 "") MENSAJE-ERROR-TIPO)
 (check-expect (crear-tangente-exterior "C" 3) MENSAJE-ERROR-TIPO)
+(check-expect (crear-tangente-exterior C1 "") MENSAJE-ERROR-TIPO)
 (check-expect (crear-tangente-exterior C1 -2) MENSAJE-ERROR-NO-MAYOR-A-CERO)
 
 (define (crear-tangente-exterior C n)
@@ -78,14 +80,15 @@ Integrantes:
         [else (crear-tangente-exterior-aux C n)]))
 
 ;; crear-tangente-exterior-aux: Circunferencia Number -> Circunferencia
-;; Dada una circunferencia C y un entero n mayor a 0, devuelva otra
-;; circunferencia C’ que verifique las siguientes condiciones:
+;; Dada una circunferencia C y un entero n mayor a 0, devuelve otra
+;; circunferencia C’ que verifica las siguientes condiciones:
 ;; - C y C’ son tangentes exteriores
 ;; - El radio de C’ es n veces el radio de C
 ;; - Las coordenadas y de los centros de C y C’ son iguales
 ;; - La coordenada x del centro de C’ es mayor a la coordenada x del centro de C
 
 (check-expect (crear-tangente-exterior-aux C1 3) C2)
+(check-expect (crear-tangente-exterior-aux C3 1) C4)
 
 (define (crear-tangente-exterior-aux C n)
   (make-Circunferencia (make-posn (+ (posn-x (Circunferencia-centro C))
