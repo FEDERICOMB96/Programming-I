@@ -17,8 +17,8 @@ Integrantes:
 
 (define-struct Circunferencia [centro radio])
 ;; Circunferencia es (posn, Number)
-;; Intepretación: El primer elemento es el centro de la circunferencia
-;; (un par ordenado de coordenadas x, y en el plano cartesiano)
+;; Intepretación: El primer campo es el centro de la circunferencia
+;; (un par ordenado de coordenadas x y en el plano cartesiano)
 ;; mientras que el segundo es el radio de la misma (en píxeles).
 
 ;; Ejemplos:
