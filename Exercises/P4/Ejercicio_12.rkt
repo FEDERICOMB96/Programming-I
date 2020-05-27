@@ -25,7 +25,7 @@
                                                     ; entrada de tipo Persona
 
 ;; -------------------------------------
-;; imc : persona -> Number/String
+;; imc: persona -> Number/String
 ;; Dada una persona, devuelve su índice de masa corporal,
 ;; para cualquier otro objeto, devuelve "Tipo de dato inválido".
 
@@ -38,7 +38,7 @@
       MENSAJE-ERROR-TIPO))
 
 ;; -------------------------------------
-;; imc : persona -> Number/String
+;; imc-aux: persona -> Number
 ;; Dada una persona, devuelve su índice de masa corporal en kg/m^2.
 
 (check-within (imc ANA) 22.49 0.1)
