@@ -16,10 +16,10 @@
 ;; Representamos unidades de peso mediante strings ("kg" "g")
 
 ;; Ejemplos de personas
-(define SILVIA (make-persona "Silvia Perez" 68 "kg" 1.64 "m"))
-(define FER (make-persona "Fernando Aguirre" 72 "kg" 179 "cm"))
-(define NICO (make-persona "Nicolás Zanarini" 24000 "g" 1.23 "m"))
-(define ANA (make-persona "Ana Gomez" 65000 "g" 170 "cm"))
+(define SILVIA (make-Persona "Silvia Perez" 68 "kg" 1.64 "m"))
+(define FER (make-Persona "Fernando Aguirre" 72 "kg" 179 "cm"))
+(define NICO (make-Persona "Nicolás Zanarini" 24000 "g" 1.23 "m"))
+(define ANA (make-Persona "Ana Gomez" 65000 "g" 170 "cm"))
 
 (define MENSAJE-ERROR-TIPO "Tipo de dato inválido") ; Si la función IMC no recibe una
                                                     ; entrada de tipo Persona
@@ -29,8 +29,43 @@
 ;; Dada una persona, devuelve su índice de masa corporal,
 ;; para cualquier otro objeto, devuelve "Tipo de dato inválido".
 
+(check-within (imc SILVIA) 25.28 0.1)
+(check-expect (imc "NICO") MENSAJE-ERROR-TIPO)
+
 (define (imc p)
   (if (Persona? p)
-      (/ (* (Persona-peso p) (if (string=? (Persona-peso-unidad p) "g") 0.001 1))
-         (sqr (* (Persona-estatura p) (if (string=? (Persona-peso-unidad p) "c") 0.01 1))))
+      (imc-aux p)
       MENSAJE-ERROR-TIPO))
+
+;; -------------------------------------
+;; imc : persona -> Number/String
+;; Dada una persona, devuelve su índice de masa corporal en kg/m^2.
+
+(check-within (imc ANA) 22.49 0.1)
+(check-within (imc FER) 22.47 0.1)
+
+(define (imc-aux p)
+  (/ (toKg (Persona-peso p) (Persona-peso-unidad p))
+     (sqr (toM (Persona-estatura p) (Persona-estatura-unidad p)))))
+
+;; -------------------------------------
+;; toKg: Number String -> Number
+;; Dado un peso, evalúa si está en kilogramos.
+;; Si no lo está, lo convierte de gramos a kilogramos.
+
+(check-expect (toKg 64 "kg") 64)
+(check-expect (toKg 82000 "g") 82)
+
+(define (toKg p u)
+  (if (string=? u "kg") p (* p 0.001)))
+
+;; -------------------------------------
+;; toM: Number String -> Number
+;; Dado un estatura, evalúa si está en metros.
+;; Si no lo está, lo convierte de centímetros a metros.
+
+(check-expect (toM 1.83 "m") 1.83)
+(check-expect (toM 190 "cm") 1.90)
+
+(define (toM m u)
+  (if (string=? u "m") m (* m 0.01)))
