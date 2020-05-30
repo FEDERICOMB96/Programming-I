@@ -21,12 +21,13 @@
 
 ;; Ejemplos:
 (define LISTA-A (list 4 4 6))
-(define LISTA-B (list 1 7 2 7))
+(define LISTA-B (list 1 6 2 7))
 
 ;; longitudes : Lista-de-strings -> Lista-de-longitudes
 ;; dada una lista de cadenas, devuelve la lista de sus longitudes
 ;; (es decir, la cantidad de caracteres que contienen).
 
+(check-expect (longitudes empty) empty)
 (check-expect (longitudes LISTA1) LISTA-A)
 (check-expect (longitudes LISTA2) LISTA-B)
 
