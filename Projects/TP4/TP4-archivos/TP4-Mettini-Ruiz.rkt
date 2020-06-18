@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-intermediate-reader.ss" "lang")((modname TP4-Mettini-Ruiz) (read-case-sensitive #t) (teachpacks ((lib "batch-io.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "batch-io.rkt" "teachpack" "2htdp") (lib "image.rkt" "teachpack" "2htdp")) #f)))
+#reader(lib "htdp-intermediate-reader.ss" "lang")((modname TP4-Mettini-Ruiz) (read-case-sensitive #t) (teachpacks ((lib "batch-io.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #f #t none #f ((lib "batch-io.rkt" "teachpack" "2htdp")) #f)))
 #|
 Trabajo Práctico 4: Listas
 
@@ -116,7 +116,7 @@ Integrantes:
   (>= (notificacion-conf n) LIMITE-CASOS))
 
 ;; localidades-limite-casos : List(Notificacion) -> List(String)
-;; Dada una lista de notificaciones, devuelva la lista de localidades que presentan
+;; Dada una lista de notificaciones, devuelve la lista de localidades que presentan
 ;; LIMITE-CASOS o más casos confirmados de COVID-19 hasta el día HOY.
 
 (check-expect (localidades-limite-casos empty) empty)
@@ -133,6 +133,20 @@ Integrantes:
 ;;;;;;;;;;;; Consulta 2
 
 ;; Ejercicio 3-1
+;; obtener-primero-sublistas : List(List(X ..)) -> List(X)
+;; Dada una lista de listas de elementos de cualquier tipo, devuelve una lista
+;; con el primer elemento de cada sublista.
+
+(check-expect (obtener-primero-sublistas empty) empty)
+(check-expect (obtener-primero-sublistas (list (list "a" "b")
+                                               (list "b" "c" "d")
+                                               (list "c")))
+              (list "a" "b" "c"))
+
+(define (obtener-primero-sublistas l)
+  (cond [(empty? l) empty]
+        [else (cons (first (first l)) (obtener-primero-sublistas (rest l)))]))
+
 ;; esta? : String List(String) -> Boolean
 ;; Dado un String s y una lista de strings l, devuelve si s esta en l.
 
@@ -157,20 +171,6 @@ Integrantes:
         [else (if (esta? (first l) (rest l))
                   (filtrar-strings-repetidas (rest l))
                   (cons (first l) (filtrar-strings-repetidas (rest l))))]))
-
-;; obtener-primero-sublistas : List(List(X ..)) -> List(X)
-;; Dada una lista de listas de elementos de cualquier tipo, devuelve una lista
-;; con el primer elemento de cada sublista.
-
-(check-expect (obtener-primero-sublistas empty) empty)
-(check-expect (obtener-primero-sublistas (list (list "a" "b")
-                                               (list "b" "c" "d")
-                                               (list "c")))
-              (list "a" "b" "c"))
-
-(define (obtener-primero-sublistas l)
-  (cond [(empty? l) empty]
-        [else (cons (first (first l)) (obtener-primero-sublistas (rest l)))]))
 
 (define LISTA-DPTO (filtrar-strings-repetidas (obtener-primero-sublistas LISTA-DPTO-LOC)))
 
@@ -216,7 +216,7 @@ Integrantes:
                   (cons (first l) (filtrar-segun-fecha (rest l) f))
                   (filtrar-segun-fecha (rest l) f))]))
 
-;; departamento : String List(String String) -> String
+;; departamento : String List(List(String String)) -> String
 ;; Dada una localidad y una lista de listas con localidades y su departamento
 ;; correspondiente, devuelve el departamento al que pertenece.
 
@@ -233,8 +233,8 @@ Integrantes:
 ;; Dada una notificacion y un departamento, devuelve si la notificacion es de una
 ;; localidad perteneciente al departamento dado.
 
-(check-expect (filtrar-segun-dpto NOTIF-SANTA-FE-2020-06-02 "La Capital") #t)
-(check-expect (filtrar-segun-dpto NOTIF-ROSARIO-2020-06-02 "La Capital") #f)
+(check-expect (notificacion-del-dpto-dado? NOTIF-SANTA-FE-2020-06-02 "La Capital") #t)
+(check-expect (notificacion-del-dpto-dado? NOTIF-ROSARIO-2020-06-02 "La Capital") #f)
 
 (define (notificacion-del-dpto-dado? n d)
   (string=? (departamento (notificacion-loc n) LISTA-DPTO-LOC) d))
@@ -295,15 +295,19 @@ Integrantes:
 ;; sea el nombre del departamento y el segundo sea el número de casos confirmados que se
 ;; han registrado allí hasta la fecha en cuestión.
 
+(check-expect (confirmados-por-dpto-aux LISTA-NOTIF empty HOY) empty)
+(check-expect (confirmados-por-dpto-aux LISTA-NOTIF-EJEMPLO (list "La Capital" "Rosario") HOY)
+              (list (list "La Capital" 32) (list "Rosario" 113)))
+
 (define (confirmados-por-dpto-aux l1 l2 f)
   (cond [(empty? l2) empty]
         [else (cons (confirmados-dpto-fecha-2 l1 (first l2) f)
                     (confirmados-por-dpto-aux l1 (rest l2) f))]))
 
 ;; confirmados-por-dpto : List(Notificacion) String -> List(List(String Number))
-;; Dada una lista de notificaciones y una fecha, devuelva una lista de listas de longitud dos:
+;; Dada una lista de notificaciones y una fecha, devuelve una lista de listas de longitud dos:
 ;; una por cada departamento santafesino, donde el primer elemento sea el nombre
-;; del departamento y el segundo sea el número de casos confirmados que se
+;; del departamento y el segundo es el número de casos confirmados que se
 ;; han registrado allí hasta la fecha en cuestión.
 
 (define (confirmados-por-dpto l f)
@@ -317,18 +321,20 @@ Integrantes:
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; Salidas ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;; Consulta 1
-
 ;; separar-filas : String -> String
-;; Dado un String s, devuelve otro es String que surge de añadir "\n " al final de s.
+;; Dado un String s, devuelve otro String que surge de añadir "\n " al final de s.
 
 (check-expect (separar-filas "") "\n ")
-(check-expect (separar-filas "ROSARIO") "ROSARIO\n ")
+(check-expect (separar-filas "ROSARIO, 124") "ROSARIO, 124\n ")
 
 (define (separar-filas s)
   (string-append s "\n "))
 
 ;; separar-columnas : List(String Number) -> String
+;; Dada una lista donde el primer elemento es un String (en nuestro caso el nombre del departamento)
+;; y el segundo un numero (la cantidad de casos confirmados en dicho departamento),
+;; devuelve un String que surge de la concatenacion del primer elemento y el segundo
+;; separados por ", ".
 
 (check-expect (separar-columnas empty) "")
 (check-expect (separar-columnas (list "La Capital" 47)) "La Capital, 47")
@@ -336,6 +342,8 @@ Integrantes:
 (define (separar-columnas l)
   (cond [(empty? l) ""]
         [else (string-append (first l) ", " (number->string (second l)))]))
+
+;;;;;;;;;;;; Consulta 1
 
 ;; Ejercicio 4 - loc-lim-casos.csv
 (write-file "loc-lim-casos.csv"
