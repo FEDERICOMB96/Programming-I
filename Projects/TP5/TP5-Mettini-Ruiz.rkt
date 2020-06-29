@@ -3,7 +3,6 @@
 #reader(lib "htdp-advanced-reader.ss" "lang")((modname TP5-Mettini-Ruiz) (read-case-sensitive #t) (teachpacks ((lib "image.rkt" "teachpack" "2htdp") (lib "batch-io.rkt" "teachpack" "2htdp"))) (htdp-settings #(#t constructor repeating-decimal #t #t none #f ((lib "image.rkt" "teachpack" "2htdp") (lib "batch-io.rkt" "teachpack" "2htdp")) #f)))
 #|
 Trabajo Práctico 5: Naturales
-
 Integrantes:
 - Mettini, Fabrizio, comisión 3.
 - Ruiz, Fabricio, comisión 4.
@@ -57,21 +56,18 @@ Integrantes:
 
 ;;;; Ejercicio 2-2
 #|
-
 Version 1:
                     / tab[0][0]                                                 si i = 0, j = 0
                     | tab[0][j] + maximoCosto(0, j-1)                           si i = 0, j != 0
 maximoCosto(i, j) = <
                     | tab[i][0] + maximoCosto(i-1, 0)                           si i != 0, j = 0
                     \ tab[i][j] + max(maximoCosto(i-1, j), maximoCosto(i, j-1)) si i != 0, j != 0
-
 Version 2:
                     / tab[0][0]                                                 si i = 0, j = 0
                     | \sum_{k=0}^{j} tab[0][k]                                  si i = 0, j != 0
 maximoCosto(i, j) = <
                     | \sum_{k=0}^{i} tab[k][0]                                  si i != 0, j = 0
                     \ tab[i][j] + max(maximoCosto(i-1, j), maximoCosto(i, j-1)) si i != 0, j != 0
-
 |#
 
 ;;;; Ejercicio 2-3
@@ -177,13 +173,11 @@ Nota: Se evito definir maximo-lista de la siguiente manera:
   (foldr max 0 l))
 
 Ya que fallaria en algunos casos:
-Ejemplo 1: (maximo-lista empty) == 0         No tiene sentido calcular el maximo de una lista vacia.
-Ejemplo 2: (maximo-lista (list -1 -2)) == 0  El resultado deberia ser -1 y no 0.
+Ejemplo 1: (maximo-lista empty) = 0         No tiene sentido calcular el maximo de una lista vacia.
+Ejemplo 2: (maximo-lista (list -1 -2)) = 0  El resultado deberia ser -1 y no 0.
 |#
 
 #|
-;; -------------------------------------
-;; No fue necesaria esta funcion
 ;; maximo-lista-de-listas : List(List(Number)) Natural -> Number
 ;; Dada una lista de listas de enteros y un natural m, devuelve el maximo
 ;; elemento de la lista.
@@ -203,30 +197,30 @@ Ejemplo 2: (maximo-lista (list -1 -2)) == 0  El resultado deberia ser -1 y no 0.
 ;; -------------------------------------
 ;; maximo-costo-lista : List(List(Integer)) Natural Natural -> List(Integer)
 ;; Dado una lista de listas de enteros tab, que representa un tablero de m filas y n columnas,
-;; y dos naturales i y j, devuelve una lista con los maximos costos de un recorrido válido
-;; de (0, 0) a (i, j) en el tablero tab. 0 ≤ i < n, 0 <= j < m, j fijo.
+;; y dos naturales i y j, devuelve una lista con los maximos costos de recorridos válidos
+;; de (0, 0) a (i, j) en el tablero tab. 0 <= i < n, 0 <= j < m, j fijo.
 
 (check-expect (maximo-costo-lista TABLERO1 1 0) (list 5 -5))
 (check-expect (maximo-costo-lista TABLERO2 3 0) (list 14 -1 9 5))
 (check-expect (maximo-costo-lista TABLERO3 1 0) (list 3 1))
 
 (define (maximo-costo-lista tab i j)
-  (cond [(zero? i) (cons (maximo-costo tab 0 j) '())]
+  (cond [(zero? (add1 i)) '()]
         [else (cons (maximo-costo tab i j)
                     (maximo-costo-lista tab (sub1 i) j))]))
 
 ;; -------------------------------------
 ;; maximo-costo-cada-casilla : List(List(Integer)) Natural Natural -> List(Integer)
 ;; Dado una lista de listas de enteros tab, que representa un tablero de m filas y n columnas,
-;; y dos naturales i y j, devuelve una lista con los maximos costos de un recorrido válido
-;; de (0, 0) a (i, j) en el tablero tab. 0 ≤ i < n, 0 <= j < m.
+;; y dos naturales i y j, devuelve una lista con los maximos costos de recorridos válidos
+;; de (0, 0) a (i, j) en el tablero tab. 0 <= i < n, 0 <= j < m.
 
 (check-expect (maximo-costo-cada-casilla TABLERO1 1 2) (list 7 4 3 -5 5 -5))
 (check-expect (maximo-costo-cada-casilla TABLERO2 3 2) (list 21 17 16 -16 17 15 7 6 14 -1 9 5))
 (check-expect (maximo-costo-cada-casilla TABLERO3 1 1) (list 0 4 3 1))
 
 (define (maximo-costo-cada-casilla tab i j)
-  (cond [(zero? j) (maximo-costo-lista tab i 0)]
+  (cond [(zero? (add1 j)) '()]
         [else (append (maximo-costo-lista tab i j)
                       (maximo-costo-cada-casilla tab i (sub1 j)))]))
 

@@ -21,7 +21,7 @@
 * [Project 2] - Programas interactivos
 * [Project 3] - Estructuras
 * [Project 4] - Listas
-* [Project 5]
+* [Project 5] - Naturales
 * [Project 6]
 
 [Homework 0]: <https://github.com/FabrizioMettini/Programming-I/tree/master/Exercises/P0>
