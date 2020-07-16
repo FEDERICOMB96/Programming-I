@@ -9,21 +9,18 @@
 ;; – (add1 Natural)
 ;; interpretación: Natural representa los números natural
 
-(define (coeficiente-interes n i)
-  (+ 1 (* (/ i (* 100 12)) n)))
-
-(define (lista-de-coeficientes n i)
-  (cond [(zero? n) '()]
-        [else (cons (coeficiente-interes n i) (lista-de-coeficientes (sub1 n) i))]))
-
 ;; cuotas-aux : Number Natural Natural -> List(Number)
 ;; Dado un importe total de un préstamo, un valor n correspondiente al número de cuotas,
 ;; una tasa i de interés, devuelva una lista con las cuotas a pagar ordenadas de forma decreciente.
 
 (check-expect (cuotas-aux 10000 0 18) '())
 (check-expect (cuotas-aux 10000 1 12) (list 10100))
-(check-expect (cuotas-aux 30000 3 12) (list 10300 10200 10100))
-(check-expect (cuotas-aux 100000 4 18) (list 26500 26125 25750 25375))
+(check-expect (cuotas-aux (/ 30000 3) 3 12) (list 10300 10200 10100))
+(check-expect (cuotas-aux (/ 100000 4) 4 18) (list 26500 26125 25750 25375))
+
+(define (cuotas-aux totalN j i)
+  (cond [(zero? j) '()]
+        [else (cons (* totalN (+ 1 (* (/ i (* 100 12)) j))) (cuotas-aux totalN (sub1 j) i))]))
 
 ;; cuotas : Number Natural Natural -> List(Number)
 ;; Dado un importe total de un préstamo, un valor n correspondiente al número de cuotas,
@@ -35,4 +32,5 @@
 (check-expect (cuotas 100000 4 18) (list 25375 25750 26125 26500))
 
 (define (cuotas total n i)
-  (reverse (cuotas-aux total n i)))
+  (cond [(zero? n) '()]
+        [else (reverse (cuotas-aux (/ total n) n i))]))
