@@ -1,0 +1,53 @@
+Ejercicio 1:
+
+(define (fun x y z) 
+  (cond [(> z (expt x y)) (+ x y z)]
+        [(< (expt x z) y) (* x y z)]
+        [else x]))
+
+(fun 2 1 4)
+==
+(cond [(> 4 (expt 2 1)) (+ 2 1 4)]
+      [(< (expt 2 4) 1) (* 2 1 4)]
+      [else 2])
+==
+(cond [(> 4 2) (+ 2 1 4)]
+      [(< (expt 2 4) 1) (* 2 1 4)]
+      [else 2])
+==
+(cond [#true (+ 2 1 4)]
+      [(< (expt 2 4) 1) (* 2 1 4)]
+      [else 2])
+==
+(+ 2 1 4)
+==
+7
+
+(fun 6 1 4)
+==
+(cond [(> 4 (expt 6 1)) (+ 6 1 4)]
+      [(< (expt 6 4) 1) (* 6 1 4)]
+      [else 6])
+==
+(cond [(> 4 6) (+ 6 1 4)]
+      [(< (expt 6 4) 1) (* 6 1 4)]
+      [else 6])
+==
+(cond [#false (+ 6 1 4)]
+      [(< (expt 6 4) 1) (* 6 1 4)]
+      [else 6])
+==
+(cond [(< (expt 6 4) 1) (* 6 1 4)]
+      [else 6])
+==
+(cond [(< 1296 1) (* 6 1 4)]
+      [else 6])
+==
+(cond [#false (* 6 1 4)]
+      [else 6])
+==
+(cond [else 6])
+== 
+6
+
+

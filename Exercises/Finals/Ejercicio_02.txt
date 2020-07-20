@@ -1,0 +1,16 @@
+Ejercicio 2:
+
+1. "El área de un rectángulo de lados 5 y 25 es 60":
+   (= (* 5 25) 60)
+
+   FALSA
+
+2. "El sexto caracter de la cadena que se obtiene al concatenar "aBC" , "dEf" , "GhI" es "F":
+   (string=? (string-ith (string-append "aBC" "dEf" "GhI") 6) "F")
+
+   FALSA
+
+3. "El cuarto elemento de la lista (list #t 5 "hola" #f "mundo") es un string":
+   (string? (list-ref (list #t 5 "hola" #f "mundo") 3))
+
+   FALSA

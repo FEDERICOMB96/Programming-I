@@ -1,0 +1,39 @@
+Ejercicio 4:
+
+a) 
+(define (f a b c d)
+  (+ (- 3 a) (if c 1 (string-length b)) (image-width d)))
+
+b)
+(define (g x y z)
+  (if (> x (string-length y))
+      (if (> 3 z) (+ x 24) 13)
+      (if (= (string-length y) 4) z "Error")))
+
+1.
+a) f : Number String Bool Image -> Number
+b) g : Number String Number -> Number/String
+
+2.
+a) (check-expect (f 2 "Hi" #t (square 20 "solid" "red")) 22)
+b) (check-expect (g 3 "Hi" 2) 27)
+
+3.
+(f 2 "Hi" #t (square 20 "solid" "red"))
+==
+(+ (- 3 2) (if #t 1 (string-length "Hi")) (image-width (square 20 "solid" "red")))
+==
+(+ 1 (if #t 1 (string-length "Hi")) (image-width (square 20 "solid" "red")))
+==
+(+ 1 1 (image-width (square 20 "solid" "red")))
+==
+(+ 1 1 20)
+== 
+22
+
+4.
+(define (g2 x y z)
+  (cond [(and (> x (string-length y)) (> 3 z)) (+ x 24)]
+        [(> x (string-length y)) 13]
+        [(= (string-length y) 4) z]
+        [else "Error"]))
