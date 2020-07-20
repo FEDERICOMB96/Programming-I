@@ -6,7 +6,7 @@ Solutions to the Exercises and Projects of my Introductory Programming Course.
 ## Recommended Books
 * *How to Design Programs*
 * *Structure and Interpretation of Computer Programs*
-* *The Little Schemer* (fomerly known as *The Little Lisper*)
+* *The Little Schemer* (formerly known as *The Little Lisper*)
 
 ## Exercises
 * [Homework 0]
@@ -24,12 +24,12 @@ Solutions to the Exercises and Projects of my Introductory Programming Course.
 * [Finals]
 
 ## Projects
-* [Project 1] - "Receta para el diseño"
-* [Project 2] - "Programas interactivos"
-* [Project 3] - "Estructuras"
-* [Project 4] - "Listas"
-* [Project 5] - "Naturales"
-* [Project 6] - "Problemas Integradores"
+* [Project 1] - Receta para el diseño
+* [Project 2] - Programas interactivos
+* [Project 3] - Estructuras
+* [Project 4] - Listas
+* [Project 5] - Naturales
+* [Project 6] - Problemas Integradores
 
 [Homework 0]: <https://github.com/FabrizioMettini/Programming-I/tree/master/Exercises/P0>
 [Homework 1]: <https://github.com/FabrizioMettini/Programming-I/tree/master/Exercises/P1>
