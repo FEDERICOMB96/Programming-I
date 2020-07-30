@@ -8,6 +8,8 @@ Integrantes:
 - Ruiz, Fabricio, comisión 4.
 |#
 
+;; Los tableros se representaran con listas de listas de enteros.
+
 ;; Un Natural es: 
 ;; – 0
 ;; – (add1 Natural)
@@ -20,7 +22,7 @@ Integrantes:
 ;; una escalera de n escalones si se suben los escalones, únicamente, de a uno,
 ;; de a tres o de a cinco.
 
-(check-expect (subir 0) 1) ; Caso Especial
+(check-expect (subir 0) 1)
 (check-expect (subir 1) 1)
 (check-expect (subir 2) 1)
 (check-expect (subir 3) 2)
@@ -31,9 +33,12 @@ Integrantes:
 
 (define (subir n)
   (cond [(zero? n) 1]
-        [(zero? (sub1 n)) 1]
-        [(positive? n) (+ (subir (- n 1)) (subir (- n 3)) (subir (- n 5)))]
-        [else 0]))
+        [(= n 1) 1]
+        [(= n 2) 1]
+        [(= n 3) 2]
+        [(= n 4) 3]
+        [(= n 5) 5]       
+        [else (+ (subir (- n 1)) (subir (- n 3)) (subir (- n 5)))]))
 
 ;;;;;;;; Ejercicio 2
 
@@ -62,6 +67,7 @@ Version 1:
 maximoCosto(i, j) = <
                     | tab[i][0] + maximoCosto(i-1, 0)                           si i != 0, j = 0
                     \ tab[i][j] + max(maximoCosto(i-1, j), maximoCosto(i, j-1)) si i != 0, j != 0
+
 Version 2:
                     / tab[0][0]                                                 si i = 0, j = 0
                     | \sum_{k=0}^{j} tab[0][k]                                  si i = 0, j != 0
@@ -154,6 +160,19 @@ maximoCosto(i, j) = <
 
 ;;;; Ejercicio 2-4
 ;; -------------------------------------
+;; maximo-costo-tablero : List(List(Integer)) -> Integer
+;; Dada una lista de listas de enteros tab, que representa un tablero de m filas y n columnas,
+;; devuelve el máximo costo que puede tener un recorrido válido en tab.
+
+(check-expect (maximo-costo-tablero TABLERO1) 7)
+(check-expect (maximo-costo-tablero TABLERO2) 21)
+(check-expect (maximo-costo-tablero TABLERO3) 0)
+
+(define (maximo-costo-tablero tab)
+  (maximo-costo tab (sub1 (length (first tab))) (sub1 (length tab))))
+
+#| Solucion general del problema 2.4:
+;; -------------------------------------
 ;; maximo-lista : List(Number) -> Number
 ;; Dada una lista de numeros, devuelve el mayor elemento de la misma.
 ;; La lista no puede ser vacia.
@@ -166,18 +185,16 @@ maximoCosto(i, j) = <
   (cond [(empty? (rest l)) (first l)]                
         [else (max (first l) (maximo-lista (rest l)))]))
 
-#|
-Nota: Se evito definir maximo-lista de la siguiente manera:
-
-(define (maximo-lista l)
-  (foldr max 0 l))
-
-Ya que fallaria en algunos casos:
-Ejemplo 1: (maximo-lista empty) = 0         No tiene sentido calcular el maximo de una lista vacia.
-Ejemplo 2: (maximo-lista (list -1 -2)) = 0  El resultado deberia ser -1 y no 0.
 |#
 
+#| Alternativamente:
+
+(define (maximo-lista l)
+  (inexact->exact (foldr max -inf.0 l)))
+
 #|
+
+;; -------------------------------------
 ;; maximo-lista-de-listas : List(List(Number)) Natural -> Number
 ;; Dada una lista de listas de enteros y un natural m, devuelve el maximo
 ;; elemento de la lista.
@@ -236,3 +253,4 @@ Ejemplo 2: (maximo-lista (list -1 -2)) = 0  El resultado deberia ser -1 y no 0.
 (define (maximo-costo-tablero tab)
   (maximo-lista
    (maximo-costo-cada-casilla tab (sub1 (length (first tab))) (sub1 (length tab)))))
+|#
